@@ -1,25 +1,35 @@
 package com.lucas.web_services.model;
 
+import jakarta.persistence.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
 
   @Serial
   private static final long serialVersionUID = 1L;
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(name = "name")
   private String name;
+  @Column(name = "email")
   private String email;
+  @Column(name = "phone")
   private String phone;
+  @Column(name = "password")
   private String password;
 
   public User() {
   }
 
-  public User(Long id, String name, String email, String phone, String password) {
-    this.id = id;
+  public User(String name, String email, String phone, String password) {
     this.name = name;
     this.email = email;
     this.phone = phone;
@@ -28,10 +38,6 @@ public class User implements Serializable {
 
   public Long getId() {
     return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public String getName() {
