@@ -1,8 +1,10 @@
 package com.lucas.web_services.config;
 
+import com.lucas.web_services.model.Category;
 import com.lucas.web_services.model.Order;
 import com.lucas.web_services.model.OrderStatus;
 import com.lucas.web_services.model.User;
+import com.lucas.web_services.repositories.CategoryRepository;
 import com.lucas.web_services.repositories.OrderRepository;
 import com.lucas.web_services.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
   @Autowired
   private OrderRepository orderRepository;
 
+  @Autowired
+  private CategoryRepository categoryRepository;
+
   @Override
   public void run(String... args) throws Exception {
     User u1 = new User("Maria Brown", "maria@gmail.com", "988888888", "123456");
@@ -33,7 +38,12 @@ public class TestConfig implements CommandLineRunner {
     Order o2 = new Order(Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.PAID, u2);
     Order o3 = new Order(Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.SHIPPED, u1);
 
+    Category c1 = new Category(null, "Electronics");
+    Category c2 = new Category(null, "Books");
+    Category c3 = new Category(null, "Computers");
+
     userRepository.saveAll(Arrays.asList(u1, u2));
     orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+    categoryRepository.saveAll(Arrays.asList(c1, c2, c3));
   }
 }
