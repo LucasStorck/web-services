@@ -2,11 +2,18 @@ package com.lucas.web_services.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +27,15 @@ public class Product {
   private Double price;
   @Column(name = "img_url")
   private String img;
+  @Column(name = "categories")
+  @Transient
+  private Set<Category> categories = new HashSet<>();
 
   public Product() {
   }
 
-  public Product(String name, String description, Double price, String img) {
+  public Product(Long id, String name, String description, Double price, String img) {
+    this.id = id;
     this.name = name;
     this.description = description;
     this.price = price;
@@ -65,6 +76,10 @@ public class Product {
 
   public void setImg(String img) {
     this.img = img;
+  }
+
+  public Set<Category> getCategories() {
+    return categories;
   }
 
   @Override
