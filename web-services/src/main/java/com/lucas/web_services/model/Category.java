@@ -1,5 +1,6 @@
 package com.lucas.web_services.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -21,8 +22,9 @@ public class Category implements Serializable {
   public Integer id;
   @Column(name = "name")
   public String name;
+  @JsonIgnore
   @Column(name = "products")
-  @Transient
+  @ManyToMany(mappedBy = "categories")
   private Set<Product> products = new HashSet<>();
 
   public Category() {
